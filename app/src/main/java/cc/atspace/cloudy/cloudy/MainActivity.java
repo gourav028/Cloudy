@@ -1,5 +1,6 @@
 package cc.atspace.cloudy.cloudy;
 
+import android.content.Context;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,7 +18,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,11 +40,21 @@ public class MainActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    private ImageView search,chat,groupChat;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
+        context=this;
+
+        //transparent status and navigation bar
+        Window w = getWindow();
+        w.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        w.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+
 
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
@@ -65,6 +80,28 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        search = (ImageView) findViewById(R.id.search_icon);
+        chat =(ImageView) findViewById(R.id.new_chat_icon);
+        groupChat =(ImageView) findViewById(R.id.new_group_chat_icon);
+
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context,"Search Button Clicked",Toast.LENGTH_SHORT).show();
+            }
+        });
+        chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context,"New Chat Button Clicked",Toast.LENGTH_SHORT).show();
+            }
+        });
+        groupChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context,"New Group Chat Button Clicked",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 

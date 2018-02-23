@@ -5,10 +5,9 @@
     android:id="@+id/main_content"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context="cc.atspace.cloudy.cloudy.MainActivity"
     android:background="@xml/background_main_redish_orange"
-    >
+    android:fitsSystemWindows="true"
+    tools:context="cc.atspace.cloudy.cloudy.MainActivity">
 
     <!--android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -21,31 +20,30 @@
         android:id="@+id/header_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        >
+        android:layout_marginTop="20dp">
 
         <TextView
             android:id="@+id/app_name_header"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:text="Cloudy"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:padding="10dp"
-            android:textSize="20sp"
             android:layout_alignBottom="@id/icons_header_layout"
+            android:layout_alignParentLeft="true"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Cloudy"
             android:textColor="#fff"
-            />
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:id="@+id/icons_header_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            >
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
 
-            <TextView
+            <!--TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
@@ -64,7 +62,28 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:text="group"
-                android:textSize="20sp" />
+                android:textSize="20sp" /-->
+
+            <ImageView
+                android:id="@+id/search_icon"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_margin="10dp"
+                android:src="@mipmap/search" />
+
+            <ImageView
+                android:id="@+id/new_chat_icon"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_margin="10dp"
+                android:src="@mipmap/chat" />
+
+            <ImageView
+                android:id="@+id/new_group_chat_icon"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_margin="10dp"
+                android:src="@mipmap/group" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -107,32 +126,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#fff"
-        android:layout_marginRight="5dp"
         android:layout_marginLeft="5dp"
-        >
+        android:layout_marginRight="5dp"
+        android:background="#fff"
+        android:paddingBottom="50dp">
 
         <android.support.design.widget.TabItem
             android:id="@+id/tabItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#ccc"
             android:text="Timeline"
-            />
+            android:textColor="#ccc" />
 
         <android.support.design.widget.TabItem
             android:id="@+id/tabItem2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#ccc"
-            android:text="Chat" />
+            android:text="Chat"
+            android:textColor="#ccc" />
 
         <android.support.design.widget.TabItem
             android:id="@+id/tabItem3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#ccc"
-            android:text="Contacts" />
+            android:text="Contacts"
+            android:textColor="#ccc" />
 
     </android.support.design.widget.TabLayout>
     <!--/android.support.design.widget.AppBarLayout-->
