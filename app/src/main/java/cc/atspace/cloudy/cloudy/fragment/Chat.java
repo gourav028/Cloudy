@@ -1,4 +1,4 @@
-package cc.atspace.cloudy.cloudy;
+package cc.atspace.cloudy.cloudy.fragment;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import cc.atspace.cloudy.cloudy.activity.Profile;
+import cc.atspace.cloudy.cloudy.R;
 
 public class Chat extends Fragment {
 

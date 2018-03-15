@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cc.atspace.cloudy.cloudy.Story">
+    tools:context="cc.atspace.cloudy.cloudy.fragment.Story">
 
 
     <ScrollView
@@ -66,6 +66,12 @@
                     android:layout_marginRight="5dp"
                     android:background="@xml/two_rounded_white">
 
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/vertical_rv_outer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+                    </android.support.v7.widget.RecyclerView>
                 </RelativeLayout>
 
             </RelativeLayout>
@@ -123,8 +129,6 @@
 
                 </RelativeLayout>
             </RelativeLayout>
-
-
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

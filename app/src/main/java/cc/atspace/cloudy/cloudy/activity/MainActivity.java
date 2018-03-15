@@ -1,4 +1,4 @@
-package cc.atspace.cloudy.cloudy;
+package cc.atspace.cloudy.cloudy.activity;
 
 import android.content.Context;
 import android.support.design.widget.TabLayout;
@@ -21,6 +21,11 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import cc.atspace.cloudy.cloudy.R;
+import cc.atspace.cloudy.cloudy.fragment.Chat;
+import cc.atspace.cloudy.cloudy.fragment.Contact;
+import cc.atspace.cloudy.cloudy.fragment.Story;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -61,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = (ViewPager) findViewById(R.id.container_vp);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);

@@ -1,4 +1,4 @@
-package cc.atspace.cloudy.cloudy;
+package cc.atspace.cloudy.cloudy.fragment;
 
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import cc.atspace.cloudy.cloudy.R;
 
 public class Contact extends Fragment {
 
