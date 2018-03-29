@@ -33,6 +33,7 @@ import cc.atspace.cloudy.cloudy.fragment.Story;
 
 public class MainActivity extends AppCompatActivity {
 
+
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
     private ImageView search,chat,groupChat;
-    Context context;
+    public Context context;
 
     //firebase
 
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-        context=this;
+        context=MainActivity.this;
 
         //transparent status and navigation bar
         Window w = getWindow();
@@ -214,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
                     Chat chat = new Chat();
                     return  chat;
                 case 2:
-                    Contact contact = new Contact();
+                    Contact contact = new Contact(context);
                     return contact;
             }
             return null;
