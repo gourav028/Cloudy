@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@xml/two_rounded_white"
+        android:background="@drawable/two_rounded_white"
         android:layout_marginRight="5dp"
         android:layout_marginLeft="5dp"
         >

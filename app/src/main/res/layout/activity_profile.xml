@@ -5,7 +5,7 @@
     android:id="@+id/main_content"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    android:background="@xml/background_main_redish_orange"
+    android:background="@drawable/background_main_redish_orange"
     android:fitsSystemWindows="true"
     tools:context="cc.atspace.cloudy.cloudy.activity.Profile">
 
@@ -81,12 +81,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/dp_conatiner_layout"
-        android:background="@xml/two_rounded_white"
+        android:background="@drawable/two_rounded_white"
         android:layout_marginTop="10dp"
         android:layout_marginRight="5dp"
         android:layout_marginLeft="5dp"
+
         >
 
+        <Button
+            android:id="@+id/change_profile_pic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Change Profile"
+            android:layout_centerInParent="true"/>
 
 
     </RelativeLayout>

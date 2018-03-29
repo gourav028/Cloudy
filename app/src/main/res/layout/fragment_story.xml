@@ -64,7 +64,7 @@
                     android:layout_below="@id/recent_stories_text_view"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
-                    android:background="@xml/two_rounded_white">
+                    android:background="@drawable/two_rounded_white">
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/vertical_rv_outer"
@@ -98,7 +98,7 @@
                     android:layout_below="@id/viewed_stories_text_view"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
-                    android:background="@xml/two_rounded_white">
+                    android:background="@drawable/two_rounded_white">
 
                 </RelativeLayout>
             </RelativeLayout>
@@ -125,7 +125,7 @@
                     android:layout_below="@id/muted_stories_text_view"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
-                    android:background="@xml/two_rounded_white">
+                    android:background="@drawable/two_rounded_white">
 
                 </RelativeLayout>
             </RelativeLayout>

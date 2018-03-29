@@ -1,6 +1,7 @@
 package cc.atspace.cloudy.cloudy.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -21,6 +22,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import cc.atspace.cloudy.cloudy.R;
 import cc.atspace.cloudy.cloudy.fragment.Chat;
@@ -45,6 +49,12 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private ImageView search,chat,groupChat;
     Context context;
+
+    //firebase
+
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseUser mFirebaseUser;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                //
             }
         });
 
@@ -105,9 +116,25 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(context,"New Group Chat Button Clicked",Toast.LENGTH_SHORT).show();
             }
         });
+
+
+
+        //Firebase
+
+        mAuth = FirebaseAuth.getInstance();
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
 
+        if(currentUser == null)
+        {
+        //    Intent startIntent = startActivity(MainActivity.this,StartActivity.class);
+        }
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

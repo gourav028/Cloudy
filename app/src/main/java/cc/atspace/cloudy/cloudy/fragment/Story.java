@@ -18,7 +18,6 @@ import cc.atspace.cloudy.cloudy.R;
 import cc.atspace.cloudy.cloudy.adapter.VerticalStoriesOuterAdapter;
 
 public class Story extends Fragment {
-    private Button prachi, pranjal;
     private View rootView;
     private Context context;
 private RecyclerView rv;

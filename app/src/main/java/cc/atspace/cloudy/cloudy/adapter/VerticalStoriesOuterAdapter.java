@@ -43,7 +43,7 @@ public class VerticalStoriesOuterAdapter extends RecyclerView.Adapter<VerticalSt
         public VerticalStoriesOuterAdapterViewHolder(View itemView) {
             super(itemView);
             VerticalOuterLayout = (RelativeLayout) itemView.findViewById(R.id.layout_vertical_rv_outer);
-            dummy = itemView.findViewById(R.id.dummy_text);
+//            dummy = itemView.findViewById(R.id.dummy_text);
 
 
         }
