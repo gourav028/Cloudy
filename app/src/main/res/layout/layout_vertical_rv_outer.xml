@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/red"
-    android:padding="10dp"
-    android:layout_margin="10dp"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layout_vertical_rv_outer"
-    >
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:layout_margin="10dp"
+    android:background="@color/red"
+    android:padding="10dp">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/horizontal_rv_inner"

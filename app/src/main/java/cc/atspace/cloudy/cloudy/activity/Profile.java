@@ -2,6 +2,7 @@ package cc.atspace.cloudy.cloudy.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -29,11 +30,14 @@ import com.google.firebase.storage.UploadTask;
 import com.soundcloud.android.crop.Crop;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.util.Random;
 
 import cc.atspace.cloudy.cloudy.R;
 import cc.atspace.cloudy.cloudy.utils.AppPreference;
+import id.zelory.compressor.Compressor;
 
 public class Profile extends AppCompatActivity {
 
@@ -77,7 +81,8 @@ public class Profile extends AppCompatActivity {
                 String email = dataSnapshot.child("email").getValue().toString();
                 String profilePic = dataSnapshot.child("profile").getValue().toString();
 
-                Picasso.with(Profile.this).load(profilePic).into(profilePicImageView);
+                if (!profilePic.equals("default"))
+                    Picasso.with(Profile.this).load(profilePic).placeholder(R.mipmap.profile).into(profilePicImageView);
             }
 
             @Override
@@ -121,6 +126,8 @@ public class Profile extends AppCompatActivity {
 
                 Crop.of(sourceUri, destinationUri).asSquare().start(Profile.this);
                 Uri resultUri = data.getData();
+//compress(resultUri)
+
                 profilePicImageView.setImageURI(resultUri);
                 profilePicUpload(resultUri);
             } else if (requestCode == Crop.REQUEST_CROP) {
@@ -175,7 +182,24 @@ public class Profile extends AppCompatActivity {
 
     }
 
-    public void setmProgressDialog() {
+    public void compress(Uri resultUri) {
+
+        File thumbFile = new File(resultUri.getPath());
+        try {
+            Bitmap thumbBitmap = new Compressor(Profile.this)
+                    .setMaxWidth(200)
+                    .setMaxHeight(200)
+                    .setQuality(75)
+                    .compressToBitmap(thumbFile);
+
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            thumbBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            byte[] thumbByte = baos.toByteArray();
+
+            //to be continued https://youtu.be/UyBg3-MrESw?t=16m59s
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 }
