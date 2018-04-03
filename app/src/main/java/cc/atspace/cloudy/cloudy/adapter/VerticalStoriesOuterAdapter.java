@@ -32,7 +32,7 @@ public class VerticalStoriesOuterAdapter extends RecyclerView.Adapter<VerticalSt
 
     @Override
     public int getItemCount() {
-        return 5;
+        return 20;
     }
 
     public class VerticalStoriesOuterAdapterViewHolder extends RecyclerView.ViewHolder {

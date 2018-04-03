@@ -31,6 +31,7 @@ import cc.atspace.cloudy.cloudy.R;
 import cc.atspace.cloudy.cloudy.fragment.Chat;
 import cc.atspace.cloudy.cloudy.fragment.Contact;
 import cc.atspace.cloudy.cloudy.fragment.Story;
+import cc.atspace.cloudy.cloudy.utils.AppPreference;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -133,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
+        AppPreference.getInstance(context).setUserId(currentUser.toString());
 
         if(currentUser == null)
         {

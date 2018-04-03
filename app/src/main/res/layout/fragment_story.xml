@@ -45,7 +45,7 @@
             <RelativeLayout
                 android:id="@+id/recent_stories_conatiner_layout"
                 android:layout_width="match_parent"
-                android:layout_height="500dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/your_story_card_view">
 
                 <TextView

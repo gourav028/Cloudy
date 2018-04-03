@@ -35,71 +35,26 @@ public class AppPreference {
     private final static String CART_COUNTER = "CART_COUNTER";
 
 
-
     public AppPreference(Context context) {
         this.context = context;
         this.sharedPreferences = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
     }
 
     public static AppPreference getInstance(Context context) {
+
         return new AppPreference(context);
     }
 
-    public void clear() {
+
+    public String getUser() {
+        return sharedPreferences.getString(USER, null);
+    }
+
+    public void setUser(String userType) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear();
+        editor.putString(USER, userType);
         editor.commit();
     }
-
-    public String getUserType() {
-        String userType = sharedPreferences.getString(USER_TYPE, null);
-        return userType;
-    }
-
-    public String getAddressId() {
-        String userType = sharedPreferences.getString(ADDRESS_ID, null);
-        return userType;
-    }
-
-    public String getShippingName() {
-        String userType = sharedPreferences.getString(SHIPPING_NAME, null);
-        return userType;
-    }
-
-    public String getShippingAddress() {
-        String userType = sharedPreferences.getString(SHIPPING_ADDRESS, null);
-        return userType;
-    }
-
-    public String getUser()
-    {
-        return sharedPreferences.getString(USER,null);
-        }
-
-        public void setUser(String userType)
-        {
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString(USER,userType);
-            editor.commit();
-        }
-    public void setUserType(String userType) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(USER_TYPE, userType);
-        editor.commit();
-    }
-
-    public void setShippingName(String userType) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(SHIPPING_NAME, userType);
-        editor.commit();
-    }
-
-    public void setShippingAddress(String userType) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(SHIPPING_ADDRESS, userType);
-        editor.commit();
-    }
-
 
     public int getCounter() {
         return sharedPreferences.getInt(CART_COUNTER, 0);
@@ -123,16 +78,8 @@ public class AppPreference {
         editor.commit();
     }
 
-    public void setAddressId(String secretKey) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(ADDRESS_ID, secretKey);
-
-        editor.commit();
-    }
-
-
     public boolean isLoggedIn() {
-        if (sharedPreferences.contains(SECRET_KEY)) {
+        if (sharedPreferences.contains(USER_ID)) {
             return true;
         }
 
@@ -162,46 +109,18 @@ public class AppPreference {
         editor.putString(MOBILE, mobile);
         editor.commit();
     }
-
-    public void setDegree(String degree) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(DEGREE, degree);
-        editor.commit();
-    }
-
-    public void setCity(String city) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(CITY, city);
-        editor.commit();
-    }
-
-    public void setZipCode(String zip_code) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(ZIP_CODE, zip_code);
-        editor.commit();
-    }
-
-    public void setState(String state) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(STATE, state);
-        editor.commit();
-    }
-
-    public void setAddress(String address) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(ADDRESS, address);
-        editor.commit();
-    }
-
-    public void setCountry(String country) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(COUNTRY, country);
-        editor.commit();
-    }
-
-    /*---------------------------------------------------------------------------------------*/
     public String getFirstName() {
         String userType = sharedPreferences.getString(FIRSTNAME, null);
+        return userType;
+    }
+
+    public void setUserId(String mobile) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(USER_ID, mobile);
+        editor.commit();
+    }
+    public String getUserId() {
+        String userType = sharedPreferences.getString(USER_ID, null);
         return userType;
     }
 
@@ -220,35 +139,6 @@ public class AppPreference {
         return userType;
     }
 
-    public String getDegree() {
-        String userType = sharedPreferences.getString(DEGREE, null);
-        return userType;
-    }
-
-    public String getAddress() {
-        String userType = sharedPreferences.getString(ADDRESS, null);
-        return userType;
-    }
-
-    public String getCity() {
-        String userType = sharedPreferences.getString(CITY, null);
-        return userType;
-    }
-
-    public String getZipCode() {
-        String userType = sharedPreferences.getString(ZIP_CODE, null);
-        return userType;
-    }
-
-    public String getState() {
-        String userType = sharedPreferences.getString(STATE, null);
-        return userType;
-    }
-
-    public String getCountry() {
-        String userType = sharedPreferences.getString(COUNTRY, null);
-        return userType;
-    }
 
     /*--------------------------------------------------------------*/
     public void setProfilePic(String profilePic) {
@@ -264,9 +154,10 @@ public class AppPreference {
     }
 
     public String getProfilePic() {
-        return sharedPreferences.getString(PROFILE_PIC,"");
+        return sharedPreferences.getString(PROFILE_PIC, "");
     }
+
     public String getCertificate() {
-        return sharedPreferences.getString(CERTIFICATE,"");
+        return sharedPreferences.getString(CERTIFICATE, "");
     }
 }
