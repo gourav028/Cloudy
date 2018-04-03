@@ -1,4 +1,4 @@
-package cc.atspace.cloudy.cloudy;
+package cc.atspace.cloudy.cloudy.activity;
 
 import android.*;
 import android.Manifest;
@@ -18,6 +18,8 @@ import ai.api.android.AIService;
 import ai.api.model.AIError;
 import ai.api.model.AIResponse;
 import ai.api.model.Result;
+import cc.atspace.cloudy.cloudy.*;
+import cc.atspace.cloudy.cloudy.R;
 
 public class MacLearn extends AppCompatActivity implements AIListener {
     AIService aiService;
@@ -27,7 +29,7 @@ public class MacLearn extends AppCompatActivity implements AIListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mac_learn);
+        setContentView(cc.atspace.cloudy.cloudy.R.layout.activity_mac_learn);
 
         t= (TextView) findViewById(R.id.textView);
         int permission = ContextCompat.checkSelfPermission(this,

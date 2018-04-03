@@ -1,12 +1,11 @@
-package cc.atspace.cloudy.cloudy;
+package cc.atspace.cloudy.cloudy.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
 
-import cc.atspace.cloudy.cloudy.activity.Login;
-import cc.atspace.cloudy.cloudy.activity.NumberLogin;
+import cc.atspace.cloudy.cloudy.R;
 
 
 public class SplashActivity extends AppCompatActivity {

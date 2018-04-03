@@ -26,7 +26,6 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import cc.atspace.cloudy.cloudy.MacLearn;
 import cc.atspace.cloudy.cloudy.R;
 import cc.atspace.cloudy.cloudy.fragment.Chat;
 import cc.atspace.cloudy.cloudy.fragment.Contact;
