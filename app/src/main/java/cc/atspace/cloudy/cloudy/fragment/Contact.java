@@ -74,18 +74,19 @@ public class Contact extends Fragment {
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
                         final String userName = dataSnapshot.child("name").getValue().toString();
+                        final String userId = dataSnapshot.getKey().toString();
                         String profileLink = dataSnapshot.child("profile").getValue().toString();
 
 
-                        Log.d("key", userIdList);
+                        Log.d("key", userId);
                         userViewHolder.setName(allUser.getEmail());
                         userViewHolder.mView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 Intent conv = new Intent(context, Conversation.class);
-                                conv.putExtra("userId", userIdList);
+                                conv.putExtra("userId", userId);
                                 conv.putExtra("userName", userName);
-                                Log.d("key_sent", userIdList);
+                                Log.d("key_sent", userId);
                                 startActivity(conv);
                             }
                         });
