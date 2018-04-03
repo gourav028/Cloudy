@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import cc.atspace.cloudy.cloudy.MacLearn;
 import cc.atspace.cloudy.cloudy.R;
 import cc.atspace.cloudy.cloudy.fragment.Chat;
 import cc.atspace.cloudy.cloudy.fragment.Contact;
@@ -89,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, MacLearn.class));
+
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 //

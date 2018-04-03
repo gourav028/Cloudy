@@ -27,7 +27,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.soundcloud.android.crop.Crop;
-import com.squareup.picasso.Picasso;
+//import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.Random;
@@ -77,7 +77,7 @@ public class Profile extends AppCompatActivity {
                 String email = dataSnapshot.child("email").getValue().toString();
                 String profilePic = dataSnapshot.child("profile").getValue().toString();
 
-                Picasso.with(Profile.this).load(profilePic).into(profilePicImageView);
+   //             Picasso.with(Profile.this).load(profilePic).into(profilePicImageView);
             }
 
             @Override

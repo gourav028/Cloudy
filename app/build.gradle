@@ -41,6 +41,9 @@ dependencies {
 
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:2.2.2'
 
+    //Machine Learning
+    compile 'ai.api:sdk:2.0.7@aar'
+    compile 'ai.api:libai:1.6.12'
 
 }
 

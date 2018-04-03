@@ -28,6 +28,11 @@ public class NumberLogin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_number_login);
 
+//Temp
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+
+
         if (ContextCompat.checkSelfPermission(NumberLogin.this,
                 Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(NumberLogin.this,

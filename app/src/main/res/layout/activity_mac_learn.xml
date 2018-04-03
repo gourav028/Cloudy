@@ -16,10 +16,10 @@
         android:layout_height="wrap_content"
         android:text="question"
         android:textAlignment="center"
-
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"/>
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"/>
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -29,7 +29,7 @@
         android:text="answer"
         android:textAlignment="center"
         android:textSize="40dp"
-        android:id="@+id/textView" />
+        />
 
     <EditText
         android:id="@+id/editText"
@@ -54,6 +54,5 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="80dp"
         android:id="@+id/button"
-
-        />
+        tools:ignore="OnClick" />
 </RelativeLayout>

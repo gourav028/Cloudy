@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import cc.atspace.cloudy.cloudy.MacLearn;
 import cc.atspace.cloudy.cloudy.activity.Profile;
 import cc.atspace.cloudy.cloudy.R;
 
