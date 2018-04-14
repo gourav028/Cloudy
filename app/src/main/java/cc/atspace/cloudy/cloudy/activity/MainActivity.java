@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import cc.atspace.cloudy.cloudy.QueryActivity;
 import cc.atspace.cloudy.cloudy.R;
 import cc.atspace.cloudy.cloudy.fragment.Chat;
 import cc.atspace.cloudy.cloudy.fragment.Contact;
@@ -90,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, MacLearn.class));
+                startActivity(new Intent(MainActivity.this, QueryActivity.class));
 
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
@@ -133,11 +134,12 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        AppPreference.getInstance(context).setUserId(currentUser.toString());
 
-        if(currentUser == null)
+        if(currentUser != null)
         {
-        //    Intent startIntent = startActivity(MainActivity.this,StartActivity.class);
+            AppPreference.getInstance(context).setUserId(currentUser.toString());
+
+            //    Intent startIntent = startActivity(MainActivity.this,StartActivity.class);
         }
     }
     @Override

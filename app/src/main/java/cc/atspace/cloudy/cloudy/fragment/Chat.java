@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import cc.atspace.cloudy.cloudy.activity.Profile;
 import cc.atspace.cloudy.cloudy.R;
 
 public class Chat extends Fragment {
@@ -29,7 +28,7 @@ public class Chat extends Fragment {
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(context, Profile.class));
+//                startActivity(new Intent(context, Profile.class));
 
             }
         });
