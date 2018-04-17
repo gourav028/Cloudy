@@ -1,15 +1,25 @@
-package cc.atspace.cloudy.cloudy;
+package cc.atspace.cloudy.cloudy.activity;
+
+import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.theartofdev.edmodo.cropper.CropImage;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -22,10 +32,18 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 
+import cc.atspace.cloudy.cloudy.R;
+import cc.atspace.cloudy.cloudy.fragment.Chat;
+import cc.atspace.cloudy.cloudy.fragment.Story;
+import cc.atspace.cloudy.cloudy.utils.AppPreference;
+
 public class QueryActivity extends AppCompatActivity {
     private final int REQ_CODE_SPEECH_INPUT = 100;
     ImageButton btnSpeak;
     TextView txtSpeechInput, outputText;
+    LinearLayout responseLL;
+    String responseTask;
+    Button responseYES, responseNO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +52,10 @@ public class QueryActivity extends AppCompatActivity {
         btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
         txtSpeechInput = (TextView) findViewById(R.id.txtSpeechInput);
         outputText = (TextView) findViewById(R.id.outputText);
+        responseLL = (LinearLayout) findViewById(R.id.response_LL_AQ);
+        responseYES = (Button) findViewById(R.id.yes_response_TV_AQ);
+        responseNO = (Button) findViewById(R.id.no_response_TV_AQ);
+
         btnSpeak.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -42,12 +64,55 @@ public class QueryActivity extends AppCompatActivity {
         });
 
 
+        outputText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @SuppressLint("ResourceType")
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.toString().equalsIgnoreCase(getString(R.string.response_profile_ask))) {
+                    responseLL.setVisibility(View.VISIBLE);
+                    responseTask = getString(R.string.response_profile_change);
+                } else if (editable.toString().equalsIgnoreCase(getString(R.string.response_profile_ask_now))) {
+                    responseLL.setVisibility(View.INVISIBLE);
+                    AppPreference.getInstance(QueryActivity.this).setCurrentTask("profile");
+                    startActivity(new Intent(QueryActivity.this, Profile.class));
+                    finish();
+                } else if (editable.toString().equalsIgnoreCase(getString(R.string.response_story_ask_now))) {
+                    responseLL.setVisibility(View.INVISIBLE);
+                    AppPreference.getInstance(QueryActivity.this).setCurrentTask("story");
+                    Intent it = new Intent(QueryActivity.this, MainActivity.class);
+                    startActivity(it);
+                    finish();
+                }
+
+            }
+        });
+
+        responseYES.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (responseTask.equalsIgnoreCase(getString(R.string.response_profile_change))) {
+                    AppPreference.getInstance(QueryActivity.this).setCurrentTask("profile");
+                    startActivity(new Intent(QueryActivity.this, Profile.class));
+                    finish();
+                }
+            }
+        });
+
     }
 
     /**
      * Showing google speech input dialog
      */
-    private void promptSpeechInput() {
+    public void promptSpeechInput() {
 
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
@@ -77,9 +142,9 @@ public class QueryActivity extends AppCompatActivity {
 
                     ArrayList<String> result = data
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    String userQuery=result.get(0);
+                    String userQuery = result.get(0);
                     txtSpeechInput.setText(userQuery);
-                    RetrieveFeedTask task=new RetrieveFeedTask();
+                    RetrieveFeedTask task = new RetrieveFeedTask();
                     task.execute(userQuery);
 
 
@@ -89,13 +154,6 @@ public class QueryActivity extends AppCompatActivity {
 
         }
     }
-
-
-
-
-
-
-
 
 
     // Create GetText Metod
@@ -116,7 +174,7 @@ public class QueryActivity extends AppCompatActivity {
             conn.setDoOutput(true);
             conn.setDoInput(true);
 
-            conn.setRequestProperty("Authorization", "Bearer efe28795599c4fad9ec39a427a9158af");
+            conn.setRequestProperty("Authorization", "Bearer 934357dd8cdf42ce8827883feb3f1dac");
             conn.setRequestProperty("Content-Type", "application/json");
 
             //Create JSONObject here
@@ -150,7 +208,6 @@ public class QueryActivity extends AppCompatActivity {
 
 
             text = sb.toString();
-
 
 
             JSONObject object1 = new JSONObject(text);
@@ -203,13 +260,11 @@ public class QueryActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            outputText.setText(s);
+            outputText.setText(s.toString());
+            Log.d("responce", s.toString());
 
         }
     }
-
-
-
 
 
 }

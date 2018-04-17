@@ -67,7 +67,7 @@
                     android:background="@drawable/two_rounded_white">
 
                     <android.support.v7.widget.RecyclerView
-                        android:id="@+id/vertical_rv_outer"
+                        android:id="@+id/recent_vertical_rv_outer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         >

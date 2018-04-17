@@ -65,7 +65,22 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/header_layout"
         >
+        <net.grobas.view.PolygonImageView
+            android:id="@+id/profile_pic_iv_profile"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            app:poly_shadow="true"
+            app:poly_shadow_color="@android:color/black"
+            app:poly_border="true"
+            app:poly_border_color="@android:color/white"
+            android:scaleType="fitCenter"
+            app:poly_vertices="6"
+            app:poly_border_width="5dp"
+            app:poly_corner_radius="5"
+            android:layout_centerInParent="true"
+            app:poly_rotation_angle="25" />
 
+<!--
         <ImageView
             android:id="@+id/profile_pic_iv_profile"
             android:layout_width="200dp"
@@ -76,6 +91,7 @@
             android:background="@drawable/image_circle_stroke"
             android:layout_margin="10dp"
             />
+-->
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/main_container_layout"

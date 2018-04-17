@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,7 +27,6 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import cc.atspace.cloudy.cloudy.QueryActivity;
 import cc.atspace.cloudy.cloudy.R;
 import cc.atspace.cloudy.cloudy.fragment.Chat;
 import cc.atspace.cloudy.cloudy.fragment.Contact;
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
-    private ImageView search,chat,groupChat;
+    private ImageView search, chat, groupChat;
     public Context context;
 
     //firebase
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-        context=MainActivity.this;
+        context = MainActivity.this;
 
         //transparent status and navigation bar
         Window w = getWindow();
@@ -87,7 +87,14 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
+        search = (ImageView) findViewById(R.id.search_icon);
+        chat = (ImageView) findViewById(R.id.new_chat_icon);
+        groupChat = (ImageView) findViewById(R.id.new_group_chat_icon);
+
+
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setImageResource(R.mipmap.cloudy_head_logo);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,29 +106,24 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        search = (ImageView) findViewById(R.id.search_icon);
-        chat =(ImageView) findViewById(R.id.new_chat_icon);
-        groupChat =(ImageView) findViewById(R.id.new_group_chat_icon);
-
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context,"Search Button Clicked",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Search Button Clicked", Toast.LENGTH_SHORT).show();
             }
         });
         chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context,"New Chat Button Clicked",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "New Chat Button Clicked", Toast.LENGTH_SHORT).show();
             }
         });
         groupChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context,"New Group Chat Button Clicked",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "New Group Chat Button Clicked", Toast.LENGTH_SHORT).show();
             }
         });
-
 
 
         //Firebase
@@ -135,13 +137,15 @@ public class MainActivity extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        if(currentUser != null)
-        {
-            AppPreference.getInstance(context).setUserId(currentUser.toString());
+        AppPreference.getInstance(context).setUserId(currentUser.getUid().toString());
+        Log.d("curr", currentUser.toString());
+        if (currentUser != null) {
+            AppPreference.getInstance(context).setUserId(currentUser.getUid().toString());
 
             //    Intent startIntent = startActivity(MainActivity.this,StartActivity.class);
         }
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -212,14 +216,13 @@ public class MainActivity extends AppCompatActivity {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
 
-            switch(position)
-            {
+            switch (position) {
                 case 0:
-                    Story story = new Story();
+                    Story story = new Story(context);
                     return story;
                 case 1:
-                    Chat chat = new Chat();
-                    return  chat;
+                    Chat chat = new Chat(context);
+                    return chat;
                 case 2:
                     Contact contact = new Contact(context);
                     return contact;

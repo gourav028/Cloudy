@@ -5,7 +5,7 @@ package cc.atspace.cloudy.cloudy.bean;
  */
 
 public class chat {
-    private String message;
+    private String message, from;
 
 
     public chat() {
@@ -21,5 +21,13 @@ public class chat {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
     }
 }

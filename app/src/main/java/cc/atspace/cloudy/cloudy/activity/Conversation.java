@@ -1,10 +1,14 @@
 package cc.atspace.cloudy.cloudy.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -37,6 +41,8 @@ public class Conversation extends AppCompatActivity {
     private EditText msgConvEditText;
     private Button msgSentButton;
     private RecyclerView messagesListRV;
+    private Context context;
+    private int sendBtnTyp = 0;
 
     private final List<chat> chatList = new ArrayList<chat>();
     private LinearLayoutManager linearLayoutManager;
@@ -48,17 +54,18 @@ public class Conversation extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation);
+        context = getApplicationContext();
         userName_tv = (TextView) findViewById(R.id.username_conv_tv);
         mChatUserId = getIntent().getStringExtra("userId");
         mChatUserName = getIntent().getStringExtra("userName");
-        userName_tv.setText(mChatUserName + " " + mChatUserId);
+        userName_tv.setText(mChatUserName);
         msgConvEditText = (EditText) findViewById(R.id.message_conv_et);
         msgSentButton = (Button) findViewById(R.id.send_conv_btn);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         //constructor
-        mAdapter = new ConversationAdapter(chatList);
+        mAdapter = new ConversationAdapter(chatList, context);
 
         messagesListRV = (RecyclerView) findViewById(R.id.message_list_rv_conv);
         //layout
@@ -106,12 +113,54 @@ public class Conversation extends AppCompatActivity {
             }
         });*/
 
+        msgConvEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                if (charSequence.toString().trim().length() == 0) {
+                    sendBtnTyp = 0;
+                } else if (charSequence.toString().trim().length() > 0) {
+                    sendBtnTyp = 1;
+                }
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                if (charSequence.toString().trim().length() == 0) {
+                    sendBtnTyp = 0;
+                    msgSentButton.setText("MIC");
+                } else if (charSequence.toString().trim().length() > 0) {
+                    sendBtnTyp = 1;
+                    msgSentButton.setText("SEND");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
         msgSentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendMessage();
+
+                if (sendBtnTyp == 1) {
+                    sendMessage();
+                } else {
+
+/*
+                    QueryActivity qa = new QueryActivity();
+                    qa.promptSpeechInput();
+*/
+
+                    startActivity(new Intent(Conversation.this, QueryActivity.class));
+                }
+
             }
         });
+
 
     }
 
@@ -154,8 +203,10 @@ public class Conversation extends AppCompatActivity {
             String pushId = userMessagePush.getKey();
 
             Map messageMap = new HashMap();
-            messageMap.put("chat/" + mCurrentUserId + "/" + mChatUserId + "/" + pushId+"/message", message);
-            messageMap.put("chat/" + mChatUserId + "/" + mCurrentUserId + "/" + pushId+"/message", message);
+            messageMap.put("chat/" + mCurrentUserId + "/" + mChatUserId + "/" + pushId + "/message", message);
+            messageMap.put("chat/" + mCurrentUserId + "/" + mChatUserId + "/" + pushId + "/from", mCurrentUserId);
+            messageMap.put("chat/" + mChatUserId + "/" + mCurrentUserId + "/" + pushId + "/message", message);
+            messageMap.put("chat/" + mChatUserId + "/" + mCurrentUserId + "/" + pushId + "/from", mCurrentUserId);
 
             mDatabaseRef.updateChildren(messageMap, new DatabaseReference.CompletionListener() {
                 @Override

@@ -13,26 +13,14 @@ public class AppPreference {
 
     private final static String PREFERENCE_NAME = "AppPreference";
 
-    private final static String USER_TYPE = "USER_TYPE";
     private final static String USER = null;
     private final static String SECRET_KEY = "SECRET_KEY";
     private final static String USER_ID = "USER_ID";
-    private final static String ADDRESS = "ADDRESS";
-    private final static String CITY = "CITY";
-    private final static String ZIP_CODE = "ZIP";
-    private final static String DEGREE = "DEGREE";
-    private final static String STATE = "STATE";
-    private final static String COUNTRY = "COUNTRY";
-    private final static String MOBILE = "MOBILE";
-    private final static String EMAIL = "EMAIL";
-    private final static String FIRSTNAME = "FIRSTNAME";
-    private final static String LASTNAME = "LASTNAME";
+    private final static String PHONE = "PHONE";
+    private final static String NAME = "NAME";
     private final static String PROFILE_PIC = "PROFILE_PIC";
-    private final static String CERTIFICATE = "CERTIFICATE";
-    private final static String SHIPPING_NAME = "SHIPPING_NAME";
-    private final static String SHIPPING_ADDRESS = "SHIPPING_ADDRESS";
-    private final static String ADDRESS_ID = "ADDRESS_ID";
-    private final static String CART_COUNTER = "CART_COUNTER";
+    private final static String COUNTER = "CART_COUNTER";
+    private final static String CURRENT_TASK = "CURRENT_TASK";
 
 
     public AppPreference(Context context) {
@@ -45,8 +33,15 @@ public class AppPreference {
         return new AppPreference(context);
     }
 
+    public boolean isLoggedIn() {
+        if (sharedPreferences.contains(USER_ID)) {
+            return true;
+        }
+        return false;
+    }
 
-    public String getUser() {
+    public String getUser()
+    {
         return sharedPreferences.getString(USER, null);
     }
 
@@ -56,14 +51,15 @@ public class AppPreference {
         editor.commit();
     }
 
-    public int getCounter() {
-        return sharedPreferences.getInt(CART_COUNTER, 0);
+    public int getCounter()
+    {
+        return sharedPreferences.getInt(COUNTER, 0);
     }
 
 
     public void setCounter(int counter) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt(CART_COUNTER, counter);
+        editor.putInt(COUNTER, counter);
         editor.commit();
     }
 
@@ -78,67 +74,53 @@ public class AppPreference {
         editor.commit();
     }
 
-    public boolean isLoggedIn() {
-        if (sharedPreferences.contains(USER_ID)) {
-            return true;
-        }
 
-        return false;
-    }
-
-    public void setFirstName(String firstName) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(FIRSTNAME, firstName);
-        editor.commit();
-    }
-
-    public void setLastName(String lastName) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(LASTNAME, lastName);
-        editor.commit();
-    }
-
-    public void setEmail(String email) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(EMAIL, email);
-        editor.commit();
-    }
-
-    public void setMobile(String mobile) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(MOBILE, mobile);
-        editor.commit();
-    }
-    public String getFirstName() {
-        String userType = sharedPreferences.getString(FIRSTNAME, null);
+    public String getPhone() {
+        String userType = sharedPreferences.getString(PHONE, null);
         return userType;
     }
+
+
+    public void setPhone(String mobile) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(PHONE, mobile);
+        editor.commit();
+    }
+
+    public String getName() {
+        String userType = sharedPreferences.getString(NAME, null);
+        return userType;
+    }
+
+    public void setName(String name) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(NAME, name);
+        editor.commit();
+    }
+
+    public String getUserId() {
+        String userType = sharedPreferences.getString(USER_ID, null);
+        return userType;
+    }
+
 
     public void setUserId(String mobile) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(USER_ID, mobile);
         editor.commit();
     }
-    public String getUserId() {
-        String userType = sharedPreferences.getString(USER_ID, null);
+
+    public String getCurrentTask() {
+        String userType = sharedPreferences.getString(CURRENT_TASK, "default");
         return userType;
     }
 
-    public String getLastName() {
-        String userType = sharedPreferences.getString(LASTNAME, null);
-        return userType;
-    }
 
-    public String getEmail() {
-        String userType = sharedPreferences.getString(EMAIL, null);
-        return userType;
+    public void setCurrentTask(String currentTask) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(CURRENT_TASK, currentTask);
+        editor.commit();
     }
-
-    public String getMobile() {
-        String userType = sharedPreferences.getString(MOBILE, null);
-        return userType;
-    }
-
 
     /*--------------------------------------------------------------*/
     public void setProfilePic(String profilePic) {
@@ -147,17 +129,8 @@ public class AppPreference {
         editor.commit();
     }
 
-    public void setCertificate(String certificate) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(CERTIFICATE, certificate);
-        editor.commit();
-    }
-
-    public String getProfilePic() {
+    public String getProfilePic()
+    {
         return sharedPreferences.getString(PROFILE_PIC, "");
-    }
-
-    public String getCertificate() {
-        return sharedPreferences.getString(CERTIFICATE, "");
     }
 }

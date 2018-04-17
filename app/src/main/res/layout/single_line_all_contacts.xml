@@ -10,18 +10,37 @@
 
         <ImageView
             android:id="@+id/contact_profile_pic_iv"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
             android:background="@drawable/image_circle_stroke" />
 
-        <TextView
-            android:id="@+id/single_contact_name_tv"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/name_layout_contacts"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/contact_profile_pic_iv"
-            android:text="Gourav Bhosle"
-            android:textSize="20sp" />
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical"
+            android:paddingLeft="5dp">
+
+            <TextView
+                android:id="@+id/single_contact_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gourav Bhosle"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/single_contact_phone_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="819053393"
+                android:textSize="15sp" />
+
+        </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

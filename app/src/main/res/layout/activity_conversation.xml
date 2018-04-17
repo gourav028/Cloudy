@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/outer_layout_conversation"
@@ -19,23 +20,26 @@
         android:shadowRadius="12"
         android:text="Gourav"
         android:textColor="@color/white"
-        android:textSize="25dp" />
+        android:textSize="25dp"
+        android:layout_alignParentTop="true"
+        />
+<!--
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_below="@+id/username_conv_tv"
-        android:layout_above="@id/bottom_layout"
-        android:layout_alignParentStart="true"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/username_conv_tv">
+-->
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/message_list_rv_conv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:layout_below="@+id/username_conv_tv"
             android:padding="10dp">
 
         </android.support.v7.widget.RecyclerView>
-    </ScrollView>
 
     <LinearLayout
         android:id="@+id/bottom_layout"
@@ -43,7 +47,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
-        android:paddingBottom="50dp">
+        android:paddingBottom="50dp"
+        android:baselineAligned="false"
+        >
 
         <EditText
             android:id="@+id/message_conv_et"
@@ -58,7 +64,7 @@
             android:layout_height="50dp"
             android:layout_weight="0.3"
             android:background="@color/white"
-            android:text="SEND"
+            android:text="MIC"
             android:textColor="@drawable/background_main_redish_orange" />
     </LinearLayout>
 </RelativeLayout>

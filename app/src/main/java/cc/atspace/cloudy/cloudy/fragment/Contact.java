@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -20,9 +22,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import cc.atspace.cloudy.cloudy.R;
 import cc.atspace.cloudy.cloudy.activity.Conversation;
+import cc.atspace.cloudy.cloudy.activity.Profile;
 import cc.atspace.cloudy.cloudy.bean.users;
 
 @SuppressLint("ValidFragment")
@@ -73,21 +77,33 @@ public class Contact extends Fragment {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        final String userName = dataSnapshot.child("name").getValue().toString();
                         final String userId = dataSnapshot.getKey().toString();
+                        final String userName = dataSnapshot.child("name").getValue().toString();
+                        final String userPhone = dataSnapshot.child("phone").getValue().toString();
                         String profileLink = dataSnapshot.child("profile").getValue().toString();
 
 
-                        Log.d("key", userId);
-                        userViewHolder.setName(allUser.getEmail());
-                        userViewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                        Log.d("profile", profileLink+" - "+userName);
+                        userViewHolder.setName(allUser.getName());
+                        userViewHolder.setPhone(allUser.getPhone());
+                        Picasso.with(context).load(profileLink).into(userViewHolder.userProfileImageView);
+
+                        userViewHolder.nameLinearLayout.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 Intent conv = new Intent(context, Conversation.class);
                                 conv.putExtra("userId", userId);
                                 conv.putExtra("userName", userName);
+                                conv.putExtra("userPhone", userPhone);
                                 Log.d("key_sent", userId);
                                 startActivity(conv);
+                            }
+                        });
+
+                        userViewHolder.userProfileImageView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                startActivity(new Intent(context,Profile.class));
                             }
                         });
 
@@ -109,7 +125,9 @@ public class Contact extends Fragment {
     public static class UserViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         View mView;
-        TextView userNameTextView;
+        TextView userNameTextView,userPhoneTextView;
+        ImageView userProfileImageView;
+        LinearLayout nameLinearLayout;
 
         public UserViewHolder(final View itemView) {
             super(itemView);
@@ -117,6 +135,9 @@ public class Contact extends Fragment {
             mView = itemView;
             Log.d("userViewholder", "2");
             userNameTextView = (TextView) mView.findViewById(R.id.single_contact_name_tv);
+            userPhoneTextView = (TextView) mView.findViewById(R.id.single_contact_phone_tv);
+            userProfileImageView = (ImageView) mView.findViewById(R.id.contact_profile_pic_iv);
+            nameLinearLayout =(LinearLayout) mView.findViewById(R.id.name_layout_contacts);
 /*
             userNameTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -139,6 +160,20 @@ public class Contact extends Fragment {
             Log.d("setName", name);
 
         }
+
+        public void setProfile(String name) {
+         //   userProfileImageView.setImageURI();
+            Log.d("setName", name);
+
+        }
+
+
+        public void setPhone(String phone) {
+            Log.d("setPhone", phone);
+            userPhoneTextView.setText(phone);
+
+        }
+
 
         @Override
         public void onClick(View view) {
