@@ -9,6 +9,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        renderscriptTargetApi 24
+        renderscriptSupportModeEnabled true
     }
     buildTypes {
         release {
@@ -27,6 +29,7 @@ dependencies {
     implementation 'com.android.support:design:26.1.0'
 
     //Required
+    implementation 'com.android.support:support-v4:26.1.0'
     compile 'com.android.support:recyclerview-v7:26.1.0'
     compile 'com.android.support:cardview-v7:26.1.0'
 
@@ -45,6 +48,13 @@ dependencies {
     compile 'com.iceteck.silicompressorr:silicompressor:2.1'
     compile 'id.zelory:compressor:2.1.0'
 
+    //Image Blur
+    compile 'jp.wasabeef:blurry:2.1.1'
+    compile 'com.qiushui:blurredview:0.8.1'
+    compile 'com.wonderkiln:blurkit:1.0.0'
+    compile 'com.wingjay:blurimageviewlib:2.0.1'
+    compile 'jp.wasabeef:fresco-processors:2.1.0'
+
     //Firebase
     implementation 'com.google.firebase:firebase-auth:11.0.4'
     implementation 'com.google.firebase:firebase-database:11.0.4'
@@ -57,7 +67,6 @@ dependencies {
     //Machine Learning
     compile 'ai.api:sdk:2.0.7@aar'
     compile 'ai.api:libai:1.6.12'
-
 
 /*
     //Dragger
@@ -76,8 +85,9 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:2.2.2'
 
 
-
 }
+
+
 
 
 

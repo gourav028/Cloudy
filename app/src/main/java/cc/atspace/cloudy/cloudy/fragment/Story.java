@@ -1,7 +1,6 @@
 package cc.atspace.cloudy.cloudy.fragment;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -17,10 +16,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -37,21 +34,14 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.soundcloud.android.crop.Crop;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import cc.atspace.cloudy.cloudy.R;
-import cc.atspace.cloudy.cloudy.activity.Profile;
-import cc.atspace.cloudy.cloudy.adapter.ConversationAdapter;
-import cc.atspace.cloudy.cloudy.adapter.VerticalStoriesOuterAdapter;
+import cc.atspace.cloudy.cloudy.activity.ImageDisplayFullScreen;
 import cc.atspace.cloudy.cloudy.bean.story;
-import cc.atspace.cloudy.cloudy.bean.users;
 import cc.atspace.cloudy.cloudy.utils.AppPreference;
 
 import static android.app.Activity.RESULT_OK;
@@ -61,7 +51,6 @@ public class Story extends Fragment {
     private View rootView;
     private Context context;
     private RecyclerView mStoryList;
-    private VerticalStoriesOuterAdapter verticalStoriesOuterAdapter;
     private CardView yourStoryCV;
     private ImageView yourStroyIV;
 
@@ -71,9 +60,8 @@ public class Story extends Fragment {
     private ProgressDialog mProgressDialog;
     private String storyListPos;
 
-    private final List<story> storyList = new ArrayList<story>();
+    private String storyList;
     private LinearLayoutManager linearLayoutManager;
-    private VerticalStoriesOuterAdapter mAdapter;
 
 
     public Story(Context context) {
@@ -118,12 +106,12 @@ public class Story extends Fragment {
 
         }
 
-        mAdapter = new VerticalStoriesOuterAdapter(storyList,context);
+//        mAdapter = new VerticalStoriesOuterAdapter(storyList, context);
 
 //        mStoryList = (RecyclerView) rootView.findViewById(R.id.all_contacts_rv);
 //        mUserList.setHasFixedSize(true);
         mStoryList.setLayoutManager(new LinearLayoutManager(context));
-        mStoryList.setAdapter(mAdapter);
+//        mStoryList.setAdapter(mAdapter);
 
 
         yourStoryCV.setOnClickListener(new View.OnClickListener() {
@@ -137,8 +125,75 @@ public class Story extends Fragment {
         });
 
         Log.d("Story08", "return");
-        loadStory();
+//        loadStory();
         return rootView;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        FirebaseRecyclerAdapter<story, StoryViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<story, StoryViewHolder>(
+                story.class,
+                R.layout.single_line_story,
+                StoryViewHolder.class,
+                mDatabase
+        ) {
+            @Override
+            protected void populateViewHolder(final StoryViewHolder storyViewHolder,final story allStory, int position) {
+            storyList = getRef(position).getKey();
+
+            Log.d("Story","list-- "+storyList.toString());
+            mDatabase.child(storyList).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    Log.d("story", dataSnapshot.toString());
+                    final String storyLink = dataSnapshot.child("story_link").getValue().toString();
+                    Log.d("storyLink", storyLink);
+                    Picasso.with(context).load(storyLink).into(storyViewHolder.stroyImageView);
+
+                    storyViewHolder.relativeLayout.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent storyDisplay =new Intent(context, ImageDisplayFullScreen.class);
+                            storyDisplay.putExtra("currentStoryLink",storyLink.toString());
+                            startActivity(storyDisplay);
+
+                        }
+                    });
+                }
+
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+            }
+        };
+        mStoryList.setAdapter(firebaseRecyclerAdapter);
+    }
+
+    public static class StoryViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener{
+
+        View mView;
+        ImageView stroyImageView;
+        RelativeLayout relativeLayout;
+
+        public StoryViewHolder(View itemView) {
+            super(itemView);
+
+            mView = itemView;
+
+            relativeLayout = (RelativeLayout) mView.findViewById(R.id.layout_vertical_story);
+            stroyImageView = (ImageView) mView.findViewById(R.id.story_IV);
+
+        }
+
+        @Override
+        public void onClick(View view) {
+
+        }
     }
 
     private void loadStory() {
@@ -146,8 +201,8 @@ public class Story extends Fragment {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 story story = dataSnapshot.getValue(story.class);
-                storyList.add(story);
-                mAdapter.notifyDataSetChanged();
+//                storyList.add(story);
+//                mAdapter.notifyDataSetChanged();
 
             }
 
@@ -212,8 +267,8 @@ public class Story extends Fragment {
                     Log.d("Story07", "onComplete");
                     //Firebase database reference
                     String downloadLink = task.getResult().getDownloadUrl().toString();
-           String pushID =          mDatabase.child("story").child(mCurrrentUser.getUid().toString()).push().getKey();
-                    mDatabase.child("story").child(mCurrrentUser.getUid().toString()).child("story_link").setValue(downloadLink).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                    String pushID = mDatabase.child(mCurrrentUser.getUid().toString()).push().getKey();
+                    mDatabase.child(mCurrrentUser.getUid().toString()).child("story_link").setValue(downloadLink).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {

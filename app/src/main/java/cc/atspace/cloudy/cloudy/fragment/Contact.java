@@ -26,6 +26,7 @@ import com.squareup.picasso.Picasso;
 
 import cc.atspace.cloudy.cloudy.R;
 import cc.atspace.cloudy.cloudy.activity.Conversation;
+import cc.atspace.cloudy.cloudy.activity.ImageDisplayFullScreen;
 import cc.atspace.cloudy.cloudy.activity.Profile;
 import cc.atspace.cloudy.cloudy.bean.users;
 
@@ -80,10 +81,10 @@ public class Contact extends Fragment {
                         final String userId = dataSnapshot.getKey().toString();
                         final String userName = dataSnapshot.child("name").getValue().toString();
                         final String userPhone = dataSnapshot.child("phone").getValue().toString();
-                        String profileLink = dataSnapshot.child("profile").getValue().toString();
+                        final String profileLink = dataSnapshot.child("profile").getValue().toString();
 
 
-                        Log.d("profile", profileLink+" - "+userName);
+                        Log.d("profile", profileLink + " - " + userName);
                         userViewHolder.setName(allUser.getName());
                         userViewHolder.setPhone(allUser.getPhone());
                         Picasso.with(context).load(profileLink).into(userViewHolder.userProfileImageView);
@@ -103,7 +104,9 @@ public class Contact extends Fragment {
                         userViewHolder.userProfileImageView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                startActivity(new Intent(context,Profile.class));
+                                Intent storyDisplay =new Intent(context, ImageDisplayFullScreen.class);
+                                storyDisplay.putExtra("currentStoryLink",profileLink);
+                                startActivity(storyDisplay);
                             }
                         });
 
@@ -125,7 +128,7 @@ public class Contact extends Fragment {
     public static class UserViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         View mView;
-        TextView userNameTextView,userPhoneTextView;
+        TextView userNameTextView, userPhoneTextView;
         ImageView userProfileImageView;
         LinearLayout nameLinearLayout;
 
@@ -137,7 +140,7 @@ public class Contact extends Fragment {
             userNameTextView = (TextView) mView.findViewById(R.id.single_contact_name_tv);
             userPhoneTextView = (TextView) mView.findViewById(R.id.single_contact_phone_tv);
             userProfileImageView = (ImageView) mView.findViewById(R.id.contact_profile_pic_iv);
-            nameLinearLayout =(LinearLayout) mView.findViewById(R.id.name_layout_contacts);
+            nameLinearLayout = (LinearLayout) mView.findViewById(R.id.name_layout_contacts);
 /*
             userNameTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -162,7 +165,7 @@ public class Contact extends Fragment {
         }
 
         public void setProfile(String name) {
-         //   userProfileImageView.setImageURI();
+            //   userProfileImageView.setImageURI();
             Log.d("setName", name);
 
         }

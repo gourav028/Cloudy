@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/splash"
+    android:background="@drawable/bg_gradient"
     tools:context="cc.atspace.cloudy.cloudy.activity.SplashActivity">
 
     <ImageView
@@ -13,7 +13,7 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:layout_marginTop="94dp"
-        android:src="@drawable/splash" />
+        android:src="@mipmap/cloudy_head_logo" />
 
 
     <!-- The primary full-screen view. This can be replaced with whatever view

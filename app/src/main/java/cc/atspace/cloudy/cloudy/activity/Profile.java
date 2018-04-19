@@ -46,13 +46,13 @@ import id.zelory.compressor.Compressor;
 
 public class Profile extends AppCompatActivity {
 
-    private Button changeProfilePicButton;
     private static final int GALLERY_PICK = 1;
-    private ImageView profilePicImageView;
+    private ImageView profilePicImageView,changeProfilePicButton;
     private StorageReference mImageStorage;
     private FirebaseUser mCurrrentUser;
     private DatabaseReference mDatabase;
     private ProgressDialog mProgressDialog;
+    String profilePic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +75,7 @@ public class Profile extends AppCompatActivity {
         if (mCurrrentUser != null)
             mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(mCurrrentUser.getUid());
 
-        changeProfilePicButton = (Button) findViewById(R.id.change_profile_pic);
+        changeProfilePicButton = (ImageView) findViewById(R.id.change_profile_pic);
         profilePicImageView = (ImageView) findViewById(R.id.profile_pic_iv_profile);
 /*
 
@@ -104,7 +104,7 @@ public class Profile extends AppCompatActivity {
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String profilePic = dataSnapshot.child("profile").getValue().toString();
+                 profilePic = dataSnapshot.child("profile").getValue().toString();
 
                 if (!profilePic.equals("default"))
                  Picasso.with(Profile.this).load(profilePic).placeholder(R.mipmap.profile).into(profilePicImageView);
@@ -128,6 +128,15 @@ public class Profile extends AppCompatActivity {
                 startActivityForResult(Intent.createChooser(galleryIntent,"Select Image"), GALLERY_PICK);
 */
                 Crop.pickImage(Profile.this);
+            }
+        });
+
+        profilePicImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent fullProfile = new Intent(Profile.this,ImageDisplayFullScreen.class);
+                fullProfile.putExtra("currentStoryLink",profilePic);
+                startActivity(fullProfile);
             }
         });
 

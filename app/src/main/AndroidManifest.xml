@@ -39,9 +39,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.UserLogin_02" />
-        <activity android:name="com.soundcloud.android.crop.CropImageActivity"/>
-        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat"/>
+        <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
+        <activity
+            android:name=".activity.ImageDisplayFullScreen"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_story_display_full_screen"
+            android:theme="@style/FullscreenTheme"></activity>
     </application>
 
 </manifest>

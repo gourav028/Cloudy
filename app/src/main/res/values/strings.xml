@@ -19,5 +19,7 @@
     <string name="response_profile_change">profileChange</string>
     <string name="response_profile_change_now">profileChangeNow</string>
     <string name="response_story_change_now">storyChangeNow</string>
+
+    <string name="title_activity_story_display_full_screen">StoryDisplayFullScreen</string>
 </resources>
 

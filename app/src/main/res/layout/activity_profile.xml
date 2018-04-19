@@ -5,7 +5,7 @@
     android:id="@+id/main_content"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_main_redish_orange"
+    android:background="@drawable/bg_gradient"
     android:fitsSystemWindows="true"
     tools:context="cc.atspace.cloudy.cloudy.activity.Profile">
 
@@ -74,12 +74,27 @@
             app:poly_border="true"
             app:poly_border_color="@android:color/white"
             android:scaleType="fitCenter"
-            app:poly_vertices="6"
-            app:poly_border_width="5dp"
-            app:poly_corner_radius="5"
+            app:poly_vertices="8"
+            android:src="@mipmap/profile"
+            app:poly_border_width="2dp"
+            app:poly_corner_radius="50"
             android:layout_centerInParent="true"
-            app:poly_rotation_angle="25" />
+            app:poly_rotation_angle="0"
 
+            />
+
+        <ImageView
+            android:id="@+id/change_profile_pic"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:src="@mipmap/edit_icon"
+            android:background="@drawable/all_rounded_white"
+            android:padding="5dp"
+            android:layout_alignBottom="@id/profile_pic_iv_profile"
+            android:layout_alignEnd="@id/profile_pic_iv_profile"
+            android:layout_marginRight= "18dp"
+            android:layout_marginBottom="15dp"
+            />
 <!--
         <ImageView
             android:id="@+id/profile_pic_iv_profile"
@@ -105,12 +120,14 @@
 
         >
 
+<!--
         <Button
             android:id="@+id/change_profile_pic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Change Profile"
             android:layout_centerInParent="true"/>
+-->
 
 
     </RelativeLayout>

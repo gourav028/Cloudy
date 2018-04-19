@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
-    private ImageView search, chat, groupChat;
+    private ImageView search, profileIcon, settingIcon;
     public Context context;
 
     //firebase
@@ -82,15 +82,59 @@ public class MainActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container_vp);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        final TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-        search = (ImageView) findViewById(R.id.search_icon);
-        chat = (ImageView) findViewById(R.id.new_chat_icon);
-        groupChat = (ImageView) findViewById(R.id.new_group_chat_icon);
 
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                switch (position) {
+                    case 0:
+                        tabLayout.getTabAt(0).setIcon(R.mipmap.story_icon);
+                        tabLayout.getTabAt(0).setText(null);
+                        tabLayout.getTabAt(1).setIcon(null);
+                        tabLayout.getTabAt(1).setText("Chat");
+                        tabLayout.getTabAt(2).setIcon(null);
+                        tabLayout.getTabAt(2).setText("Contacts");
+                        break;
+                    case 1:
+                        tabLayout.getTabAt(0).setIcon(null);
+                        tabLayout.getTabAt(0).setText("Story");
+                        tabLayout.getTabAt(1).setIcon(R.mipmap.chat_icon);
+                        tabLayout.getTabAt(1).setText(null);
+                        tabLayout.getTabAt(2).setIcon(null);
+                        tabLayout.getTabAt(2).setText("Contacts");
+
+                        break;
+                    case 2:
+                        tabLayout.getTabAt(0).setIcon(null);
+                        tabLayout.getTabAt(0).setText("Story");
+                        tabLayout.getTabAt(1).setIcon(null);
+                        tabLayout.getTabAt(1).setText("Chat");
+                        tabLayout.getTabAt(2).setIcon(R.mipmap.contacts_icon);
+                        tabLayout.getTabAt(2).setText(null);
+                        break;
+
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+        search = (ImageView) findViewById(R.id.search_icon);
+        profileIcon = (ImageView) findViewById(R.id.profile_icon);
+        settingIcon = (ImageView) findViewById(R.id.setting_icon);
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -112,16 +156,17 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(context, "Search Button Clicked", Toast.LENGTH_SHORT).show();
             }
         });
-        chat.setOnClickListener(new View.OnClickListener() {
+        profileIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "New Chat Button Clicked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "profle Button Clicked", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this,Profile.class));
             }
         });
-        groupChat.setOnClickListener(new View.OnClickListener() {
+        settingIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "New Group Chat Button Clicked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "setting Button Clicked", Toast.LENGTH_SHORT).show();
             }
         });
 

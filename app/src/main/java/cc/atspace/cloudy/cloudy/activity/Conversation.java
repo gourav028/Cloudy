@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,7 +40,7 @@ public class Conversation extends AppCompatActivity {
     private DatabaseReference mDatabaseRef;
     private FirebaseAuth mAuth;
     private EditText msgConvEditText;
-    private Button msgSentButton;
+    private ImageView msgSentButton;
     private RecyclerView messagesListRV;
     private Context context;
     private int sendBtnTyp = 0;
@@ -60,7 +61,7 @@ public class Conversation extends AppCompatActivity {
         mChatUserName = getIntent().getStringExtra("userName");
         userName_tv.setText(mChatUserName);
         msgConvEditText = (EditText) findViewById(R.id.message_conv_et);
-        msgSentButton = (Button) findViewById(R.id.send_conv_btn);
+        msgSentButton = (ImageView) findViewById(R.id.send_conv_btn);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
@@ -129,10 +130,10 @@ public class Conversation extends AppCompatActivity {
 
                 if (charSequence.toString().trim().length() == 0) {
                     sendBtnTyp = 0;
-                    msgSentButton.setText("MIC");
+                    msgSentButton.setImageResource(R.mipmap.mic_icon);
                 } else if (charSequence.toString().trim().length() > 0) {
                     sendBtnTyp = 1;
-                    msgSentButton.setText("SEND");
+                    msgSentButton.setImageResource(R.mipmap.senticon);
                 }
             }
 

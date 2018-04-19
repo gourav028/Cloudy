@@ -29,7 +29,7 @@ public class VerticalStoriesOuterAdapter extends RecyclerView.Adapter<VerticalSt
 
     @Override
     public VerticalStoriesOuterAdapterViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.layout_vertical_rv_outer, parent, false);
+        View v = LayoutInflater.from(context).inflate(R.layout.single_line_story, parent, false);
         return new VerticalStoriesOuterAdapterViewHolder(v);
     }
 
@@ -52,7 +52,7 @@ public class VerticalStoriesOuterAdapter extends RecyclerView.Adapter<VerticalSt
 
         public VerticalStoriesOuterAdapterViewHolder(View itemView) {
             super(itemView);
-            VerticalOuterLayout = (RelativeLayout) itemView.findViewById(R.id.layout_vertical_rv_outer);
+            VerticalOuterLayout = (RelativeLayout) itemView.findViewById(R.id.layout_vertical_story);
             storyIV = (ImageView) itemView.findViewById(R.id.story_IV);
 //            dummy = itemView.findViewById(R.id.dummy_text);
 
