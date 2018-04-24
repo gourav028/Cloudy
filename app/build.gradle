@@ -55,6 +55,18 @@ dependencies {
     compile 'com.wingjay:blurimageviewlib:2.0.1'
     compile 'jp.wasabeef:fresco-processors:2.1.0'
 
+    //gif Image
+//    implementation 'com.github.bumptech.glide:glide:4.7.1'
+//    annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
+    compile 'com.github.bumptech.glide:glide:3.8.0'
+    compile 'com.android.support:support-v4:26.1.0'
+    compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.12'
+    compile 'com.felipecsl:gifimageview:2.2.0'
+
+    //Progress Bar
+    compile  'it.michelelacorte.elasticprogressbar:library:1.0.5'
+    compile 'com.github.StevenDXC:DxLoadingButton:2.0'
+
     //Firebase
     implementation 'com.google.firebase:firebase-auth:11.0.4'
     implementation 'com.google.firebase:firebase-database:11.0.4'

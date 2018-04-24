@@ -11,7 +11,6 @@
          is needed to present your content, e.g. VideoView, SurfaceView,
          TextureView, etc. -->
 
-
     <ImageView
         android:id="@+id/bgImage_IV_FS"
         android:layout_width="match_parent"
@@ -59,5 +58,30 @@
 
         </LinearLayout>
     -->
+    <!--
+    <cc.atspace.cloudy.cloudy.utils.SpecialProgressBarView
+        android:id="@+id/ls"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        app:startDrawable="@drawable/ic_file_upload_white_36dp"
+        app:endSuccessDrawable="@drawable/ic_done_white_36dp"
+        app:textSize="12sp"
+        app:textColorSuccess="#66A269"
+        app:textColorNormal="#491C14"
+        app:textColorError="#BC5246"
+        app:progressBarHeight="4dp"
+        app:progressBarBgColor="#491C14"
+        app:progressBarColor="#ffffff"
+        app:canReBackable="true"
+        app:canDragable="false"
+        />
+
+    <it.michelelacorte.elasticprogressbar.ElasticDownloadView
+        android:id="@+id/elastic_download_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"/>-->
 </RelativeLayout>
 

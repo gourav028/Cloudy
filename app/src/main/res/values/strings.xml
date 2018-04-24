@@ -16,6 +16,7 @@
     <string name="response_profile_ask">Would you like to update your profile pic ?</string>
     <string name="response_profile_ask_now">Sure</string>
     <string name="response_story_ask_now">Alright</string>
+    <string name="response_show_profile_ask_now">yup sure !</string>
     <string name="response_profile_change">profileChange</string>
     <string name="response_profile_change_now">profileChangeNow</string>
     <string name="response_story_change_now">storyChangeNow</string>

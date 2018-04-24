@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_main_redish_orange"
+    android:background="@drawable/bg_gradient"
     tools:context="cc.atspace.cloudy.cloudy.activity.UserLogin_02">
 
     <EditText

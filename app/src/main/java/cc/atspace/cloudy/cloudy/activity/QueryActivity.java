@@ -91,6 +91,24 @@ public class QueryActivity extends AppCompatActivity {
                     Intent it = new Intent(QueryActivity.this, MainActivity.class);
                     startActivity(it);
                     finish();
+                } else if (editable.toString().equalsIgnoreCase(getString(R.string.response_show_profile_ask_now))) {
+
+                    responseLL.setVisibility(View.INVISIBLE);
+                    AppPreference.getInstance(QueryActivity.this).setCurrentTask("profile");
+                    Intent it = new Intent(QueryActivity.this, ImageDisplayFullScreen.class);
+                    if (txtSpeechInput.getText().toString().contains("gaurav") || txtSpeechInput.getText().toString().contains("Gaurav")) {
+                        it.putExtra("currentStoryLink", "https://firebasestorage.googleapis.com/v0/b/cloudy-e0811.appspot.com/o/profile_images%2FSVE0W6wsCGdK6xBVjwurY9vpaVJ3.jpg?alt=media&token=88757676-0074-425e-b34c-388d12e163ef");
+                        Log.d("gaurav", it.toString());
+                    } else if (txtSpeechInput.getText().toString().contains("prachi savdekar")) {
+                        it.putExtra("currentStoryLink", "https://firebasestorage.googleapis.com/v0/b/cloudy-e0811.appspot.com/o/profile_images%2FN7yHoIDaqafts42vACFDQLdNfmw1.jpg?alt=media&token=5041d6ac-f486-4931-81e0-823cd9356c98");
+                    } else if (txtSpeechInput.getText().toString().contains("pranjal") || txtSpeechInput.getText().toString().contains("pranjall")) {
+                        it.putExtra("currentStoryLink", "https://firebasestorage.googleapis.com/v0/b/cloudy-e0811.appspot.com/o/profile_images%2Fod4XftloLqQV9lnk9tyxNf0lhIG3.jpg?alt=media&token=32562f55-bf3e-41a4-82e0-6499d444f791");
+                    } else if (txtSpeechInput.getText().toString().contains("harsh")) {
+                        it.putExtra("currentStoryLink", "https://firebasestorage.googleapis.com/v0/b/cloudy-e0811.appspot.com/o/profile_images%2Fprofile.png?alt=media&token=65c5801f-1dcd-49ea-b95b-e09f8a256986");
+                    }
+
+                    startActivity(it);
+                    finish();
                 }
 
             }

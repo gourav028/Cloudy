@@ -1,35 +1,51 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradient"
     tools:context="cc.atspace.cloudy.cloudy.activity.SplashActivity">
-
-    <ImageView
-        android:layout_width="120dp"
+<!--
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/logo_image_SA"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
-        android:layout_marginTop="94dp"
-        android:src="@mipmap/cloudy_head_logo" />
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:scaleType="centerInside"
+        android:src="@mipmap/cloudy_banner_logo_ani" />
+    -->
 
+    <ImageView
+        android:id="@+id/logo_image_SA"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:scaleType="centerInside"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:src="@mipmap/cloudy_banner_logo_04" />
 
+-->
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
          TextureView, etc. -->
     <TextView
         android:id="@+id/fullscreen_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logo_image_SA"
+        android:layout_marginTop="-60dp"
+        android:fontFamily="cursive"
         android:gravity="center"
         android:keepScreenOn="true"
         android:text="Cloudy"
         android:textColor="#33b5e5"
-        android:textSize="50sp"
-        android:textStyle="bold" />
-
+        android:textSize="60sp" />
 
 
 </RelativeLayout>
