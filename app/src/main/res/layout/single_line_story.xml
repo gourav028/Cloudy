@@ -1,18 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout_vertical_story"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
-    android:layout_margin="10dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
     android:background="#dddd"
-    android:padding="10dp">
+    android:padding="5dp">
+    <!--
+       <ImageView
+           android:id="@+id/story_IV"
+           android:layout_width="64dp"
+           android:layout_height="64dp"
+           android:layout_centerInParent="true"
+           />
 
-   <ImageView
-       android:id="@+id/story_IV"
-       android:layout_width="64dp"
-       android:layout_height="64dp"
-       android:layout_centerInParent="true"
-       />
+       -->
+    <net.grobas.view.PolygonImageView
+        android:id="@+id/story_IV"
+        android:layout_width="170dp"
+        android:layout_height="160dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/profile"
+        android:padding="10dp"
+        app:poly_border="false"
+        app:poly_border_color="@color/red"
+        app:poly_border_width="2dp"
+        app:poly_corner_radius="-20"
+        app:poly_rotation_angle="30"
+        app:poly_shadow="true"
+        app:poly_shadow_color="@android:color/black"
+        app:poly_vertices="6"
+        />
 
 
 </RelativeLayout>

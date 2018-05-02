@@ -9,7 +9,6 @@ import android.os.Handler;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.felipecsl.gifimageview.library.GifImageView;
 
 import cc.atspace.cloudy.cloudy.R;
 
@@ -41,16 +40,4 @@ public class SplashActivity extends AppCompatActivity {
 
 
     }
-/*
-    @Override
-    protected void onStart() {
-        super.onStart();
-        gifView.startAnimation();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        gifView.stopAnimation();
-    }*/
 }

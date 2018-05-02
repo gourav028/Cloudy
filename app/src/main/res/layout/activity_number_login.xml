@@ -11,38 +11,63 @@
         android:id="@+id/enterMobile_no_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button_no_login"
+        android:layout_above="@+id/button_layout"
         android:layout_marginBottom="100dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:backgroundTint="@color/red"
+        android:backgroundTint="@color/white"
         android:backgroundTintMode="src_atop"
         android:ems="10"
         android:hint="Number"
-        android:inputType="phone" />
+        android:inputType="phone"
+        android:textColor="@color/white"
+        android:textColorHint="@color/grey" />
 
     <EditText
         android:id="@+id/enterOTP_et_no_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button_no_login"
+        android:layout_above="@+id/button_layout"
+        android:layout_marginBottom="40dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="40dp"
-        android:backgroundTint="@color/red"
+        android:backgroundTint="@color/white"
         android:ems="6"
         android:hint="OTP"
-        android:inputType="phone" />
+        android:inputType="phone"
+        android:textColor="@color/white"
+        android:textColorHint="@color/grey" />
 
-
-    <Button
-        android:id="@+id/button_no_login"
+    <RelativeLayout
+        android:id="@+id/button_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="300dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:background="@drawable/two_rounded_white"
-        />
+
+        >
+
+        <Button
+            android:id="@+id/button_no_login"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/two_rounded_white"
+            android:text="Send OTP"
+            android:textSize="18sp"
+            />
+
+        <in.shadowfax.proswipebutton.ProSwipeButton
+            android:id="@+id/next_button_no_login"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/two_rounded_white"
+            android:visibility="gone"
+            app:arrow_color="#aa31244e"
+            app:bg_color="@color/white"
+            app:btn_text="Verify   >>"
+            app:text_color="#000"
+            app:text_size="18sp" />
+    </RelativeLayout>
 </RelativeLayout>

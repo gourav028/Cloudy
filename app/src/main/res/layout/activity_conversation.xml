@@ -19,6 +19,7 @@
         android:shadowColor="#000"
         android:shadowRadius="12"
         android:text="Gourav"
+        android:background="#5000"
         android:textColor="@color/white"
         android:textSize="25dp"
         android:layout_alignParentTop="true"
@@ -54,6 +55,8 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_toLeftOf="@id/send_conv_btn"
+            android:backgroundTint="@color/black_overlay"
+            android:textColor="@color/black_overlay"
             android:layout_alignParentStart="true"/>
 
         <ImageView

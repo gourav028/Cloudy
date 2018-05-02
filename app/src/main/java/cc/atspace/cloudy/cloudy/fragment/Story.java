@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -113,6 +114,10 @@ public class Story extends Fragment {
         mStoryList.setLayoutManager(new LinearLayoutManager(context));
 //        mStoryList.setAdapter(mAdapter);
 
+        RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
+        itemAnimator.setAddDuration(500);
+        mStoryList.setItemAnimator(itemAnimator);
+
 
         yourStoryCV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,41 +145,59 @@ public class Story extends Fragment {
                 mDatabase
         ) {
             @Override
-            protected void populateViewHolder(final StoryViewHolder storyViewHolder,final story allStory, int position) {
-            storyList = getRef(position).getKey();
+            protected void populateViewHolder(final StoryViewHolder storyViewHolder, final story allStory, final int position) {
+                storyList = getRef(position).getKey();
 
-            Log.d("Story","list-- "+storyList.toString());
-            mDatabase.child(storyList).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    Log.d("story", dataSnapshot.toString());
-                    final String storyLink = dataSnapshot.child("story_link").getValue().toString();
-                    Log.d("storyLink", storyLink);
-                    Picasso.with(context).load(storyLink).into(storyViewHolder.stroyImageView);
+                Log.d("Story", "list-- " + storyList.toString());
+                mDatabase.child(storyList).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Log.d("story", dataSnapshot.toString());
+                        final String storyLink = dataSnapshot.child("story_link").getValue().toString();
+                        Log.d("storyLink", storyLink);
+                        Picasso.with(context).load(storyLink).into(storyViewHolder.stroyImageView);
+                        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) storyViewHolder.stroyImageView.getLayoutParams();
 
-                    storyViewHolder.relativeLayout.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Intent storyDisplay =new Intent(context, ImageDisplayFullScreen.class);
-                            storyDisplay.putExtra("currentStoryLink",storyLink.toString());
-                            startActivity(storyDisplay);
+                        if (position % 3 == 0) {
+                            params.addRule(RelativeLayout.CENTER_HORIZONTAL);
+//                            params.addRule(RelativeLayout.ALIGN_PARENT_START);
+
+                        } else if (position % 3 == 1) {
+                            params.addRule(RelativeLayout.CENTER_HORIZONTAL);
+//                            params.addRule(RelativeLayout.ALIGN_PARENT_END);
+
+                        } else if (position % 3 == 2) {
+                            params.addRule(RelativeLayout.CENTER_HORIZONTAL);
 
                         }
-                    });
-                }
+
+                        storyViewHolder.stroyImageView.setLayoutParams(params);
 
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
+                        storyViewHolder.relativeLayout.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent storyDisplay = new Intent(context, ImageDisplayFullScreen.class);
+                                storyDisplay.putExtra("currentStoryLink", storyLink.toString());
+                                AppPreference.getInstance(context).setCurrentTask("story");
+                                startActivity(storyDisplay);
 
-                }
-            });
+                            }
+                        });
+                    }
+
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
             }
         };
         mStoryList.setAdapter(firebaseRecyclerAdapter);
     }
 
-    public static class StoryViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener{
+    public static class StoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         View mView;
         ImageView stroyImageView;

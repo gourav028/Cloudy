@@ -15,10 +15,12 @@
         android:layout_marginBottom="30dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:backgroundTint="@color/red"
+        android:backgroundTint="@color/white"
         android:backgroundTintMode="src_atop"
         android:ems="10"
-        android:hint="Name" />
+        android:hint="Name"
+        android:textColor="@color/white"
+        android:textColorHint="@color/grey" />
 
     <TextView
         android:id="@+id/gender_user_login"
@@ -33,33 +35,37 @@
         android:id="@+id/m_radioButton_user_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
+        android:layout_above="@id/next_button_user_login"
         android:layout_marginBottom="10dp"
+        android:layout_marginLeft="30dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="5dp"
-        android:layout_above="@id/next_button_user_login"
-        android:text="M" />
+        android:text="M"
+        android:textColor="@color/grey" />
 
     <RadioButton
         android:id="@+id/f_radioButton_user_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginBottom="10dp"
-        android:layout_toRightOf="@id/m_radioButton_user_login"
         android:layout_above="@id/next_button_user_login"
-        android:text="F" />
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="5dp"
+        android:layout_toRightOf="@id/m_radioButton_user_login"
+        android:backgroundTint="@color/white"
+        android:text="F"
+        android:textColor="@color/grey" />
 
 
     <Button
         android:id="@+id/next_button_user_login"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="250dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="250dp"
         android:background="@drawable/two_rounded_white"
-        android:text="Next" />
+        android:text="FINISH"
+        android:textSize="18dp" />
 
 </RelativeLayout>

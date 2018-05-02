@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -29,6 +31,7 @@ import cc.atspace.cloudy.cloudy.activity.Conversation;
 import cc.atspace.cloudy.cloudy.activity.ImageDisplayFullScreen;
 import cc.atspace.cloudy.cloudy.activity.Profile;
 import cc.atspace.cloudy.cloudy.bean.users;
+import cc.atspace.cloudy.cloudy.utils.AppPreference;
 
 @SuppressLint("ValidFragment")
 public class Contact extends Fragment {
@@ -56,6 +59,10 @@ public class Contact extends Fragment {
 //        mUserList.setHasFixedSize(true);
         mUserList.setLayoutManager(new LinearLayoutManager(context));
         Log.d("oncreateview", "4");
+
+        RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
+        itemAnimator.setAddDuration(500);
+        mUserList.setItemAnimator(itemAnimator);
 
         return rootView;
     }
@@ -106,6 +113,7 @@ public class Contact extends Fragment {
                             public void onClick(View view) {
                                 Intent storyDisplay =new Intent(context, ImageDisplayFullScreen.class);
                                 storyDisplay.putExtra("currentStoryLink",profileLink);
+                                AppPreference.getInstance(context).setCurrentTask("profile");
                                 startActivity(storyDisplay);
                             }
                         });

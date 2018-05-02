@@ -3,6 +3,7 @@ package cc.atspace.cloudy.cloudy.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +19,7 @@ import java.util.HashMap;
 
 import cc.atspace.cloudy.cloudy.R;
 import cc.atspace.cloudy.cloudy.utils.AppPreference;
+import in.shadowfax.proswipebutton.ProSwipeButton;
 
 public class UserLogin_02 extends AppCompatActivity {
 
@@ -78,9 +80,9 @@ public class UserLogin_02 extends AppCompatActivity {
                 }
             }
         });
+
+
     }
 
 
 }
-
-

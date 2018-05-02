@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -16,6 +17,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
@@ -25,14 +28,18 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 import cc.atspace.cloudy.cloudy.R;
 import cc.atspace.cloudy.cloudy.utils.AppPreference;
+import in.shadowfax.proswipebutton.ProSwipeButton;
 
 public class NumberLogin_01 extends AppCompatActivity {
 
+    ProSwipeButton nextBtn;
     Button verifyNumberBtn;
     EditText verifyNumberET, verifyOTPET;
     int btnTyp = 0;
@@ -52,6 +59,7 @@ public class NumberLogin_01 extends AppCompatActivity {
         verifyNumberBtn = (Button) findViewById(R.id.button_no_login);
         verifyNumberET = (EditText) findViewById(R.id.enterMobile_no_login);
         verifyOTPET = (EditText) findViewById(R.id.enterOTP_et_no_login);
+        nextBtn = (ProSwipeButton) findViewById(R.id.next_button_no_login);
 
         //default layout
         verifyOTPET.setVisibility(View.INVISIBLE);
@@ -66,6 +74,7 @@ public class NumberLogin_01 extends AppCompatActivity {
         }
 
         msgPermission();
+
 
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             @Override
@@ -87,6 +96,16 @@ public class NumberLogin_01 extends AppCompatActivity {
                 verifyNumberET.setEnabled(false);
                 verifyOTPET.setVisibility(View.VISIBLE);
                 verifyNumberBtn.setText("Verify OTP");
+                verifyNumberBtn.setVisibility(View.GONE);
+                nextBtn.setVisibility(View.VISIBLE);
+
+
+                YoYo.with(Techniques.Bounce)
+                        .duration(1000)
+                        .repeat(2)
+                        .playOn(verifyOTPET);
+
+
             }
 
         };
@@ -113,6 +132,29 @@ public class NumberLogin_01 extends AppCompatActivity {
                 }
             }
         });
+
+        nextBtn.setOnSwipeListener(new ProSwipeButton.OnSwipeListener() {
+            @Override
+            public void onSwipeConfirm() {
+                // user has swiped the btn. Perform your async operation now
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // task success! show TICK icon in ProSwipeButton
+                        nextBtn.showResultIcon(true); // false if task failed
+                        String OTPNumber = verifyOTPET.getText().toString();
+
+                        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(mVerificationId, OTPNumber);
+                        signInWithPhoneAuthCredential(credential);
+
+                    }
+                }, 2000);
+
+            }
+        });
+
+
+
 
     }
 

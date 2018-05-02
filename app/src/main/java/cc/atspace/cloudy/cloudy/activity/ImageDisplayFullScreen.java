@@ -1,34 +1,28 @@
 package cc.atspace.cloudy.cloudy.activity;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.Message;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
-import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
-import com.qiushui.blurredview.BlurredView;
+import com.john.waveview.WaveView;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
-import java.io.IOException;
-import java.lang.ref.WeakReference;
-
 import cc.atspace.cloudy.cloudy.R;
+import cc.atspace.cloudy.cloudy.utils.AppPreference;
 import cc.atspace.cloudy.cloudy.utils.BlurImage;
-import cc.atspace.cloudy.cloudy.utils.SpecialProgressBarView;
-import it.michelelacorte.elasticprogressbar.ElasticDownloadView;
-import jp.wasabeef.blurry.Blurry;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -56,6 +50,7 @@ public class ImageDisplayFullScreen extends AppCompatActivity {
     private View mContentView;
     private ImageView fgImageView, bgImageView;
     Context context;
+    private Handler handler = new Handler();
 
     private final Runnable mHidePart2Runnable = new Runnable() {
         @SuppressLint("InlinedApi")
@@ -108,35 +103,7 @@ public class ImageDisplayFullScreen extends AppCompatActivity {
         }
     };
 
-    /*  private static final int WHAT = 1;
-      int num = 20;
-      SpecialProgressBarView ls;
-      MyHandler handler = new MyHandler(this);
-
-      class MyHandler extends Handler {
-          WeakReference<Activity> weakReference;
-
-          public MyHandler(Activity activity) {
-              weakReference = new WeakReference<Activity>(activity);
-          }
-
-          @Override
-          public void handleMessage(Message msg) {
-              if (weakReference.get() != null) {
-                  switch (msg.what) {
-                      case WHAT:
-                          num++;
-                          if (num <= ls.getMax()) {
-                              ls.setProgress(num);
-                              handler.sendEmptyMessageDelayed(WHAT, 50);
-                          }
-                          break;
-                  }
-              }
-          }
-      }
-
-    */  @Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -148,6 +115,7 @@ public class ImageDisplayFullScreen extends AppCompatActivity {
 
         fgImageView = findViewById(R.id.fgImage_IV_FS);
         bgImageView = findViewById(R.id.bgImage_IV_FS);
+        final WaveView waveView = findViewById(R.id.wave_view);
 
         String currentLink = getIntent().getStringExtra("currentStoryLink");
         Picasso.with(context).load(currentLink).into(fgImageView);
@@ -185,132 +153,59 @@ public class ImageDisplayFullScreen extends AppCompatActivity {
             }
         });
 
-        // Upon interacting with UI controls, delay any scheduled hide()
-        // operations to prevent the jarring behavior of controls going away
-        // while interacting with the UI.
-//        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
 
+/*
+        Handler handler = new Handler();
 
-        //Progress Bar
-
-    /*    ls = (SpecialProgressBarView) findViewById(R.id.ls);
-        ls.setEndSuccessBackgroundColor(Color.parseColor("#66A269"))//设置进度完成时背景颜色
-                .setEndSuccessDrawable(R.drawable.ic_done_white_36dp, null)//设置进度完成时背景图片
-                .setCanEndSuccessClickable(false)//设置进度完成后是否可以再次点击开始
-                .setProgressBarColor(Color.WHITE)//进度条颜色
-                .setCanDragChangeProgress(false)//是否进度条是否可以拖拽
-                .setCanReBack(true)//是否在进度成功后返回初始状态
-                .setProgressBarBgColor(Color.parseColor("#491C14"))//进度条背景颜色
-                .setProgressBarHeight(ls.dip2px(this, 4))//进度条宽度
-                .setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics()))//设置字体大小
-                .setStartDrawable(R.drawable.ic_file_upload_white_36dp, null)//设置开始时背景图片
-                .setTextColorSuccess(Color.parseColor("#66A269"))//设置成功时字体颜色
-                .setTextColorNormal(Color.parseColor("#491C14"))//设置默认字体颜色
-                .setTextColorError(Color.parseColor("#BC5246"));//设置错误时字体颜色
-
-        ls.beginStarting();//启动开始开始动画
-        ls.setError();//进度失败 发生错误
-
-        ls.setOnAnimationEndListener(new SpecialProgressBarView.AnimationEndListener() {
-            @Override
-            public void onAnimationEnd() {
-                ls.setMax(187);
-                ls.setProgress(num);//初次进入在动画结束时设置进度
-            }
-        });
-        ls.setOntextChangeListener(new SpecialProgressBarView.OntextChangeListener() {
-            @Override
-            public String onProgressTextChange(SpecialProgressBarView specialProgressBarView, int max, int progress) {
-                return progress * 100 / max + "%";
-            }
-
-            @Override
-            public String onErrorTextChange(SpecialProgressBarView specialProgressBarView, int max, int progress) {
-                return "error";
-            }
-
-            @Override
-            public String onSuccessTextChange(SpecialProgressBarView specialProgressBarView, int max, int progress) {
-                return "done";
-            }
-        });
-
-
-        //straight bar
-
-        final ElasticDownloadView mElasticDownloadView;
-        mElasticDownloadView = (ElasticDownloadView) findViewById(R.id.elastic_download_view);
-
-//Call startIntro() to start animation
-        mElasticDownloadView.startIntro();
-        new Handler().postDelayed(new Runnable() {
+        handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                int progressStatus = 0;
-                while (progressStatus < 100) {
-                    progressStatus = downloadFile();
-                    final int finalProgressStatus = progressStatus;
-                    handler.post(new Runnable() {
-                        public void run() {
-                            //Set progress dinamically
-                            mElasticDownloadView.setProgress(finalProgressStatus);
-                            Log.d("Progress:", "" + mElasticDownloadView.getProgress());
-                        }
-                    });
-                }
-                if (progressStatus >= 100) {
-                    mElasticDownloadView.success();
-                }
+
             }
         }, 1000);
-
-//You can set progress
-        mElasticDownloadView.setProgress(10);
-
-//If is finish animation
-        mElasticDownloadView.success();
-
-//Or fail
-//mElasticDownloadView.fail();
 */
-    }
 
-    private int downloadFile() {
-        int fileSize = 0;
-        while (fileSize <= 1000000) {
 
-            fileSize++;
+        final ProgressBar progressBar = findViewById(R.id.progressBar_FS);
+        progressBar.getProgressDrawable().setColorFilter(Color.WHITE, android.graphics.PorterDuff.Mode.SRC_IN);
+        if(AppPreference.getInstance(context).getCurrentTask().equalsIgnoreCase("story")) {
 
-            if (fileSize == 100000) {
-                return 10;
+            progressBar.setVisibility(View.VISIBLE);
+            waveView.setVisibility(View.VISIBLE);
 
-            } else if (fileSize == 200000) {
-                return 20;
-
-            } else if (fileSize == 300000) {
-                return 30;
-
-            } else if (fileSize == 400000) {
-                return 40;
-
-            } else if (fileSize == 500000) {
-
-                return 50;
-            } else if (fileSize == 700000) {
-
-                return 70;
-            } else if (fileSize == 800000) {
-
-                return 80;
-            } else if (fileSize == 900000) {
-
-                return 90;
-            }
+            new Thread(new Runnable() {
+                public void run() {
+                    float progressStatus = 0;
+                    while ((int) progressStatus < 100) {
+                        progressStatus += 1;
+                        // Update the progress bar and display the
+                        //current value in the text view
+                        final float finalProgressStatus = progressStatus;
+                        handler.post(new Runnable() {
+                            public void run() {
+                                progressBar.setProgress((int) finalProgressStatus);
+                                waveView.setProgress((int) finalProgressStatus);
+                            }
+                        });
+                        try {
+                            // Sleep for 200 milliseconds.
+                            Thread.sleep(100);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    finish();
+                }
+            }).start();
         }
+        else
+        {
+            progressBar.setVisibility(View.GONE);
+            waveView.setVisibility(View.GONE);
 
-        return 100;
-
+        }
     }
+
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
